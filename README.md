@@ -4,7 +4,8 @@ Broker: TimeToExecute
 Uses linear regression and a log of hitpoint values to estimate how long
 a boss has left to die and reach execute range.
 
-**Requires a LibDataBroker [Display Addon][].**
+**Requires a LibDataBroker [Display Addon][], like [StatBlockCore][] or
+[ElvUI][].**
 
 Mathematics are based on the [TimeToExecute Addon][] developed by
 [Tifordin][] in 2009.
@@ -45,5 +46,7 @@ translate, other than configuration.
 
 [help localise]: http://www.wowace.com/addons/broker_timetoexecute/localization/
 [Display Addon]: https://github.com/tekkub/libdatabroker-1-1/wiki/addons-using-ldb
+[StatBlockCore]: http://www.curse.com/addons/wow/stat-block-core
+[ElvUI]: http://www.tukui.org/dl.php
 [TimeToExecute Addon]: http://www.wowace.com/addons/timetoexecute/
 [Tifordin]: http://www.wowace.com/profiles/Tifordin/
