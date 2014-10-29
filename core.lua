@@ -2,8 +2,9 @@ local name, addon = ...
 LibStub('AceAddon-3.0'):NewAddon(addon, name, 'AceEvent-3.0', 'AceTimer-3.0', 'LibPubSub-1.0')
 
 -- Localise global variables
-local IsAltKeyDown = IsAltKeyDown
-local UnitHealth, UnitIsFriend, UnitGUID = UnitHealth, UnitIsFriend, UnitGUID
+local _G = _G
+local IsAltKeyDown = _G.IsAltKeyDown
+local UnitHealth, UnitIsFriend, UnitGUID = _G.UnitHealth, _G.UnitIsFriend, _G.UnitGUID
 
 local options
 local estimate

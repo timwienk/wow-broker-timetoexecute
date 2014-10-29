@@ -2,8 +2,9 @@ local name, addon = ...
 local broker = addon:NewModule('DataBroker')
 
 -- Localise global variables
-local format, min = string.format, math.min
-local UnitHealthMax = UnitHealthMax
+local _G = _G
+local format, min = _G.string.format, _G.math.min
+local UnitHealthMax = _G.UnitHealthMax
 
 local LibDataBroker = LibStub('LibDataBroker-1.1')
 local options

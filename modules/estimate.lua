@@ -2,9 +2,10 @@ local name, addon = ...
 local estimate = addon:NewModule('Estimate')
 
 -- Localise global variables
-local min, max, insert, remove = math.min, math.max, table.insert, table.remove
-local ipairs, unpack = ipairs, unpack
-local GetTime, UnitHealthMax = GetTime, UnitHealthMax
+local _G = _G
+local min, max, insert, remove = _G.math.min, _G.math.max, _G.table.insert, _G.table.remove
+local ipairs, unpack = _G.ipairs, _G.unpack
+local GetTime, UnitHealthMax = _G.GetTime, _G.UnitHealthMax
 
 local options
 
