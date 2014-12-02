@@ -5,6 +5,7 @@ local options = addon:NewModule('Options')
 local _G = _G
 local gsub, lower = _G.string.gsub, _G.string.lower
 
+local db
 local defaultOptions = {
 	core = {
 		refreshTime = 0.2,
@@ -18,9 +19,19 @@ local defaultOptions = {
 }
 
 function options:OnInitialize()
-	self.db = LibStub('AceDB-3.0'):New(name .. 'DB', {profile = defaultOptions}, true).profile
+	db = LibStub('AceDB-3.0'):New(name .. 'DB', {profile = defaultOptions}, true)
+	db.RegisterCallback(self, 'OnProfileChanged', 'OnProfileChanged')
+	db.RegisterCallback(self, 'OnProfileCopied', 'OnProfileChanged')
+	db.RegisterCallback(self, 'OnProfileReset', 'OnProfileChanged')
+
+	self.db = db.profile
 
 	self:InitializeConfig()
+end
+
+function options:OnProfileChanged(event, db)
+	self.db = db.profile
+	addon:Publish('UPDATE_OPTIONS')
 end
 
 function options:MakeGetter(group)
@@ -42,6 +53,9 @@ end
 
 function options:InitializeConfig()
 	local L = addon.L
+	local profileOptions = LibStub('AceDBOptions-3.0'):GetOptionsTable(db)
+	profileOptions.guiHidden = true
+	profileOptions.cmdHidden = true
 
 	local config = {
 		type = 'group',
@@ -80,12 +94,17 @@ function options:InitializeConfig()
 					historytime = {order=1, type='range', name=L['History time (seconds)'], arg='historyTime', min=5, max=120, step=1, bigStep=5},
 					historycount = {order=2, type='range', name=L['Max history count'], arg='historyCount', min=20, max=500, step=1, bigStep=10}
 				}
-			}
+			},
+
+			profile = profileOptions
 		}
 	}
 
 	LibStub('AceConfig-3.0'):RegisterOptionsTable(name, config, gsub(lower(name), '^broker_', ''))
-	LibStub('AceConfigDialog-3.0'):AddToBlizOptions(name)
+
+	local AceConfigDialog = LibStub('AceConfigDialog-3.0')
+	AceConfigDialog:AddToBlizOptions(name)
+	AceConfigDialog:AddToBlizOptions(name, profileOptions.name, name, 'profile')
 end
 
 function options.Open()

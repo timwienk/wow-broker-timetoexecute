@@ -23,12 +23,20 @@ function broker:OnEnable()
 	addon:Subscribe('UPDATE_TARGET', self, 'OnUpdateTarget')
 	addon:Subscribe('UPDATE_HEALTH', self, 'OnUpdateHealth')
 	addon:Subscribe('UPDATE_ESTIMATES', self, 'OnUpdateEstimates')
+	addon:Subscribe('UPDATE_OPTIONS', self, 'OnUpdateOptions')
 end
 
 function broker:OnDisable()
 	addon:Unsubscribe('UPDATE_TARGET', self, 'OnUpdateTarget')
 	addon:Unsubscribe('UPDATE_HEALTH', self, 'OnUpdateHealth')
 	addon:Unsubscribe('UPDATE_ESTIMATES', self, 'OnUpdateEstimates')
+	addon:Unsubscribe('UPDATE_OPTIONS', self, 'OnUpdateOptions')
+end
+
+function broker:OnUpdateOptions(group)
+	if group == nil then
+		options = addon:GetModule('Options').db.core
+	end
 end
 
 function broker:OnUpdateTarget(target, targetType)

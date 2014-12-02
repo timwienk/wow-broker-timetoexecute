@@ -16,11 +16,19 @@ function estimate:OnEnable()
 
 	addon:Subscribe('UPDATE_TARGET', self, 'OnUpdateTarget')
 	addon:Subscribe('UPDATE_HEALTH', self, 'OnUpdateHealth')
+	addon:Subscribe('UPDATE_OPTIONS', self, 'OnUpdateOptions')
 end
 
 function estimate:OnDisable()
 	addon:Unsubscribe('UPDATE_TARGET', self, 'OnUpdateTarget')
 	addon:Unsubscribe('UPDATE_HEALTH', self, 'OnUpdateHealth')
+	addon:Unsubscribe('UPDATE_OPTIONS', self, 'OnUpdateOptions')
+end
+
+function estimate:OnUpdateOptions(group)
+	if group == nil then
+		options = addon:GetModule('Options').db.estimate
+	end
 end
 
 function estimate:OnUpdateTarget(target, targetType)

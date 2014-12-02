@@ -45,10 +45,14 @@ function addon:OnClick(frame, button)
 end
 
 function addon:OnUpdateOptions(group, key)
-	if group == 'core' then
-		if key == 'useFocus' then
+	if group == nil then
+		options = addon:GetModule('Options').db.core
+	end
+	if group == nil or group == 'core' then
+		if key == nil or key == 'useFocus' then
 			self:UpdateTarget()
-		elseif key == 'refreshTime' and self.timer then
+		end
+		if self.timer and (key == nil or key == 'refreshTime') then
 			self:StopTimer()
 			self:StartTimer()
 		end
