@@ -4,7 +4,8 @@ LibStub('AceAddon-3.0'):NewAddon(addon, name, 'AceEvent-3.0', 'AceTimer-3.0', 'L
 -- Localise global variables
 local _G = _G
 local IsAltKeyDown = _G.IsAltKeyDown
-local UnitHealth, UnitIsFriend, UnitGUID = _G.UnitHealth, _G.UnitIsFriend, _G.UnitGUID
+local UnitHealth, UnitHealthMax, RealMobHealth = _G.UnitHealth, _G.UnitHealthMax, _G.RealMobHealth
+local UnitIsFriend, UnitGUID = _G.UnitIsFriend, _G.UnitGUID
 local FocusFrame = _G.FocusFrame
 
 local options
@@ -68,10 +69,10 @@ function addon:UpdateTarget()
 	local target = nil
 	local targetType = nil
 
-	if options.useFocus and UnitHealth('focus') > 0 and not UnitIsFriend('player', 'focus') then
+	if options.useFocus and self.GetUnitHealth('focus') > 0 and not UnitIsFriend('player', 'focus') then
 		targetType = 'focus'
 		target = UnitGUID('focus')
-	elseif UnitHealth('target') > 0 and not UnitIsFriend('player', 'target') then
+	elseif self.GetUnitHealth('target') > 0 and not UnitIsFriend('player', 'target') then
 		targetType = 'target'
 		target = UnitGUID('target')
 	end
@@ -104,7 +105,7 @@ function addon:UpdateHealth(event, targetType)
 		return
 	end
 
-	local health = UnitHealth(targetType)
+	local health = self.GetUnitHealth(targetType)
 
 	if health > 0 then
 		self:Publish('UPDATE_HEALTH', health)
@@ -127,4 +128,24 @@ function addon:UpdateEstimates()
 	local executeEstimate = estimate:Calculate(options.executePercentage)
 
 	self:Publish('UPDATE_ESTIMATES', killEstimate, executeEstimate)
+end
+
+function addon.GetUnitHealth(unit)
+	if RealMobHealth then
+		local health, _, _, maxHealthGuess = RealMobHealth.GetUnitHealth(unit)
+		if health and not maxHealthGuess then
+			return health
+		end
+	end
+	return UnitHealth(unit)
+end
+
+function addon.GetUnitMaxHealth(unit)
+	if RealMobHealth then
+		local _, maxHealth, _, maxHealthGuess = RealMobHealth.GetUnitHealth(unit)
+		if maxHealth and not maxHealthGuess then
+			return maxHealth
+		end
+	end
+	return UnitHealthMax(unit)
 end

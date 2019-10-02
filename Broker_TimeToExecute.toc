@@ -9,7 +9,7 @@
 ## Title: Broker: TimeToExecute
 ## Notes: Uses linear regression and a log of hitpoint values to estimate how long a boss has left to die and reach execute range.
 ## Author: Timmeh
-## OptionalDeps: LibStub, Ace3, LibPubSub-1.0
+## OptionalDeps: LibStub, Ace3, LibPubSub-1.0, RealMobHealth
 ## SavedVariables: Broker_TimeToExecuteDB
 
 embeds.xml

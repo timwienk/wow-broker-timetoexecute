@@ -4,7 +4,6 @@ local broker = addon:NewModule('DataBroker')
 -- Localise global variables
 local _G = _G
 local format, min = _G.string.format, _G.math.min
-local UnitHealthMax = _G.UnitHealthMax
 
 local LibDataBroker = LibStub('LibDataBroker-1.1')
 local options
@@ -41,7 +40,7 @@ end
 
 function broker:OnUpdateTarget(target, targetType)
 	if target then
-		self.maxHealth = UnitHealthMax(targetType)
+		self.maxHealth = addon.GetUnitMaxHealth(targetType)
 	else
 		self.maxHealth = 0
 	end

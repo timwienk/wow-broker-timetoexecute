@@ -5,7 +5,7 @@ local estimate = addon:NewModule('Estimate')
 local _G = _G
 local min, max, insert, remove = _G.math.min, _G.math.max, _G.table.insert, _G.table.remove
 local ipairs, unpack = _G.ipairs, _G.unpack
-local GetTime, UnitHealthMax = _G.GetTime, _G.UnitHealthMax
+local GetTime = _G.GetTime
 
 local options
 
@@ -35,7 +35,7 @@ function estimate:OnUpdateTarget(target, targetType)
 	self:Reset()
 
 	if target then
-		self.maxHealth = UnitHealthMax(targetType)
+		self.maxHealth = addon.GetUnitMaxHealth(targetType)
 	else
 		self.maxHealth = 0
 	end
