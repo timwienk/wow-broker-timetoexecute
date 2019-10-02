@@ -5,6 +5,7 @@ LibStub('AceAddon-3.0'):NewAddon(addon, name, 'AceEvent-3.0', 'AceTimer-3.0', 'L
 local _G = _G
 local IsAltKeyDown = _G.IsAltKeyDown
 local UnitHealth, UnitIsFriend, UnitGUID = _G.UnitHealth, _G.UnitIsFriend, _G.UnitGUID
+local FocusFrame = _G.FocusFrame
 
 local options
 local estimate
@@ -19,7 +20,9 @@ function addon:OnEnable()
 
 	self:RegisterEvent('UNIT_HEALTH', 'UpdateHealth')
 	self:RegisterEvent('PLAYER_TARGET_CHANGED', 'UpdateTarget')
-	self:RegisterEvent('PLAYER_FOCUS_CHANGED', 'UpdateTarget')
+	if FocusFrame ~= nil then
+		self:RegisterEvent('PLAYER_FOCUS_CHANGED', 'UpdateTarget')
+	end
 	self:Subscribe('MOUSE_CLICK', 'OnClick')
 	self:Subscribe('UPDATE_OPTIONS', 'OnUpdateOptions')
 
@@ -31,7 +34,9 @@ end
 function addon:OnDisable()
 	self:UnregisterEvent('UNIT_HEALTH')
 	self:UnregisterEvent('PLAYER_TARGET_CHANGED')
-	self:UnregisterEvent('PLAYER_FOCUS_CHANGED')
+	if FocusFrame ~= nil then
+		self:UnregisterEvent('PLAYER_FOCUS_CHANGED')
+	end
 	self:Unsubscribe('MOUSE_CLICK', 'OnClick')
 	self:Unsubscribe('UPDATE_OPTIONS', 'OnUpdateOptions')
 
