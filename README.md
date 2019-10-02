@@ -8,7 +8,7 @@ a boss has left to die and reach execute range.
 [ElvUI][].**
 
 Mathematics are based on the [TimeToExecute Addon][] developed by
-[Tifordin][] in 2009.
+Tifordin in 2009.
 
 Features
 --------
@@ -44,9 +44,8 @@ Localisation
 You can [help localise][] this addon. Fortunately there is not a lot to
 translate, other than configuration.
 
-[help localise]: http://www.wowace.com/addons/broker_timetoexecute/localization/
+[help localise]: https://www.wowace.com/projects/broker-timetoexecute/localization
 [Display Addon]: https://github.com/tekkub/libdatabroker-1-1/wiki/addons-using-ldb
-[StatBlockCore]: http://www.curse.com/addons/wow/stat-block-core
-[ElvUI]: http://www.tukui.org/dl.php
-[TimeToExecute Addon]: http://www.wowace.com/addons/timetoexecute/
-[Tifordin]: http://www.wowace.com/profiles/Tifordin/
+[StatBlockCore]: https://www.curseforge.com/wow/addons/stat-block-core
+[ElvUI]: https://www.tukui.org/classic-addons.php?id=2
+[TimeToExecute Addon]: https://www.wowace.com/projects/timetoexecute
